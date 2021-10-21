@@ -20,7 +20,6 @@ jobs:
           - test-project
         unityVersion:
           - 2019.2.11f1
-          - 2019.3.15f1
         targetPlatform:
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           # - StandaloneWindows64 # Build a Windows 64-bit standalone.
@@ -62,6 +61,8 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           customParameters: -profile SomeProfile -someBoolean -someValue exampleValue
+      
+      - run: zip -r build.zip build
 
       ###########################
       #          Upload         #
@@ -69,5 +70,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: Build (${{ matrix.unityVersion }})
-          path: build
+          path: build.zip
           retention-days: 14
